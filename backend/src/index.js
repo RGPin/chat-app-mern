@@ -4,8 +4,7 @@ import messageRoutes from "./routes/message.route.js";
 import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
-const app = express();
+import { app, server } from "./lib/socket.js";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -21,7 +20,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);
 
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, (error) => {
+server.listen(PORT, (error) => {
   if (error) throw error;
   console.log(`Server is running on port ${PORT}`);
   connectDB();
